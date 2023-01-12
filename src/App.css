@@ -6,6 +6,10 @@
   display: flex;
 }
 
+.home {
+  padding-top: 60px;
+}
+
 /* login.css */
 .login {
   width: 100%;
@@ -39,4 +43,13 @@
   color: white;
   font-weight: 800;
   font-size: 1.2rem;
+}
+
+.intro {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
 }

@@ -1,28 +1,40 @@
 .app-sidebar {
-    width: 30%;
+    /* width: 30%; */
     height: 100vh;
-    border-right: 1px solid #ddd;
-    padding-top: 50px;
+    background-color: rgb(254, 241, 214);
+    border: 1px solid rgb(218, 206, 183);
+    color: #333;
+    flex: 0 0 30%;
 }
 
 .app-sidebar-header {
     display: flex;
-    justify-content: space-between;
-    padding: 25px;
-}
-
-.app-sidebar h1 {
-    margin: 0;
-}
-
-button {
-    background: none;
-    border: none;
-    color: #08c;
-    margin: 0;
-    padding: 0;
-    font-size: 16px;
+    text-align: right;
+    border-bottom: 1px solid #bccde09d;
     cursor: pointer;
+    padding: 10px;
+    justify-content: space-between;
+}
+
+.search {
+    display: block;
+    flex: 0 1 60%;
+    margin: 0 10px 0 0;
+    padding: 8px 15px;
+    border-radius: 4px;
+    border: none;
+    background: rgba(218, 206, 183);
+    border: 1px solid rgb(180, 170, 150);
+}
+
+.app-sidebar-header button {
+    flex: 0 1 30%;
+    background: rgb(217, 163, 81);
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    font-size: 15px;
+    border-radius: 5px;
 }
 
 .app-sidebar-notes {
@@ -31,28 +43,39 @@ button {
 }
 
 .app-sidebar-note {
-    padding: 25px;
+    padding: 15px;
     cursor: pointer;
-
+    border-bottom: 1px solid #bccde09d;
+    /* border-bottom: 1px solid #fff; */
 }
 
 .app-sidebar-note p {
-    margin: 10px 0;
+    margin: 5px 0;
+    font-size: 14px;
 }
 
 .app-sidebar-note small {
     color: #999;
+    font-size: 12px;
 }
 
 .app-sidebar-note:hover {
-    background-color: #f1f0f0;
+    background: rgba(218, 206, 183);
 }
 
 .app-sidebar-note.active {
-    background-color: #dcd4d4;
+    background: rgba(218, 206, 183);
 }
 
 .sidebar-note-title {
     display: flex;
     justify-content: space-between;
+    font-weight: bold;
+    font-size: 17px;
 }
+
+.app-main-note-edit #title ,.app-main-note-edit #content{
+    font-family: 'Zen Maru Gothic', sans-serif;
+
+}
+

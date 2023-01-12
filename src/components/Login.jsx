@@ -1,61 +1,26 @@
-// import { signInWithPopup } from 'firebase/auth';
-// import React from 'react';
-// import { auth, provider } from '../firebase';
-
-// const Login = ({setIsAuth}) => {
-//     const loginInWithGoogle = () => {
-//         signInWithPopup(auth, provider).then((result) => {
-//             localStorage.setItem("isAuth", true);
-//             setIsAuth(true);
-//         });
-//     };
-
-//   return (
-//       <div>
-//         <p>ログインして始める</p>    
-//         <button onClick={loginInWithGoogle}>Googleでログイン</button>
-//       </div>
-//   )
-// }
-
-// export default Login;
-
+import { signInWithPopup } from 'firebase/auth';
 import React from 'react';
-import { auth } from "../firebase";
-import { signInWithPopup } from "firebase/auth";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { auth, provider } from '../firebase';
+// import { useAuthState } from "react-firebase-hooks/auth";
+import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
-    const [user] = useAuthState(auth);
+const Login = ({setIsAuth}) => {   
+    // const [user] = useAuthState(auth);
+    const navigate = useNavigate();
 
-  return (
-      <div className='login'>
-          <h1>ログイン</h1>
-          <SignInButton />
+    const signInWithGoogle = () => {
+        signInWithPopup(auth, provider).then((result) => {
+            localStorage.setItem("isAuth", true);
+            setIsAuth(true);
+            navigate("/home");
+        });
+    };
+
+    return (
+        <div className="login">
+                    <button onClick={signInWithGoogle}><p>グーグルでログインする</p></button>
     </div>
   )
 }
 
 export default Login;
-
-function SignInButton() {
-    const signInWithGoogle = () => {
-        signInWithPopup(auth, provider);
-    };
-
-    return (
-        <button onClick={signInWithGoogle}>
-            <p>グーグルでサインイン</p>
-        </button>
-    )
-}
-
-// import React from 'react'
-
-// const Login = () => {
-//   return (
-//     <div>Login</div>
-//   )
-// }
-
-// export default Login

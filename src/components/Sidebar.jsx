@@ -1,21 +1,37 @@
 import React from 'react';
 import "./Sidebar.css";
+import { useRef, useState,useEffect } from 'react';
 
 const Sidebar = ({onAddNote, notes, onDeleteNote, activeNote, setActiveNote }) => {
     const sortedNotes = notes.sort((a, b) => b.modDate - a.modDate);
+    const ref = useRef();
+    const [searchNote, setSearchNote] = useState([]);
+    const note = (searchNote.length === 0) ? sortedNotes : searchNote;
+
+    useEffect(() => {
+        setActiveNote(notes[0].id);
+    }, []);
+
+    const handleSearch = () => {
+        console.log(ref.current.value);
+
+        setSearchNote(
+            sortedNotes.filter((note) => note.title.toLowerCase().includes(ref.current.value))
+        );
+      };
 
   return (
     <div className="app-sidebar">
           <div className="app-sidebar-header">
-              <h1>ノート</h1>
-              <button onClick={onAddNote}>追加</button>
+          <input className="search" placeholder="検索" type="text" ref={ref} onChange={() => handleSearch()}  />
+              <button onClick={onAddNote}>＋</button>
           </div>
           <div className="app-sidebar-notes">
               
-              {sortedNotes.map((note) => (                 
+              {note.map((note) => (                 
                   <div className={`app-sidebar-note ${note.id === activeNote && "active"} `} key={note.id} onClick={() => setActiveNote(note.id)}>
                   <div className="sidebar-note-title">
-                          <strong>{ note.title}</strong>
+                          <strong>{note.title}</strong>
                       <button onClick={() => onDeleteNote(note.id)}>削除</button>
                   </div>
                       <p>{note.content}</p>

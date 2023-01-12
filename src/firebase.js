@@ -1,4 +1,3 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 // import { getAnalytics } from "firebase/analytics";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
@@ -18,6 +17,13 @@ const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
-const db = getFirestore(app);
+// const db = getFirestore(app);
+const db = firebaseApp.firestore();
 
-export { auth, provider, db };
+export { auth, provider,db };
+
+// db.collection("task").where("userId", "==", auth.currentUser.uid).onSnapshot((snapshot: any) => {
+//   snapshot.docs.forEach(doc => {
+//     console.log(doc.data().title);
+//   })
+// });
