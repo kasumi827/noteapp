@@ -6,95 +6,116 @@ import uuid from "react-uuid";
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from './firebase';
-import { doc, setDoc } from "firebase/firestore"; 
+import { db } from "./firebase";
+import { collection, getDocs, addDoc, updateDoc, doc,getDoc,deleteDoc } from "firebase/firestore";
+import "./components/Main.css";
 
 const Home = ({ isAuth }) => {
-    const [notes, setNotes] = useState(JSON.parse(localStorage.getItem("notes")) || []);
+    const [notes, setNotes] = useState([]);
+    const notesCollectionRef = collection(db, "notes");
     const [activeNote, setActiveNote] = useState(false);
     const navigate = useNavigate();
-    // const tasks = firebase.firestore().collection('tasks');
+    const [newNote, setNewNote] = useState([]);
 
-    await setDoc(doc(db, "tasks", "LA"), {
-        id: uuid(),
-        title: "無題",
-        content: "新しいノートの内容",
-        modDate: Date.now(),
-        userId: auth.currentUser.uid,
-    });
-    
-    const cityRef = doc(db, 'tasks', 'LA');
-    setDoc(cityRef, { capital: true }, { merge: true });
-  
     useEffect(() => {
-      //ローカルストレージにノートを保存する
-      localStorage.setItem("notes", JSON.stringify(notes));
+        const getNotes = async () => {
+            const data = await getDocs(notesCollectionRef);
+            setNotes(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+        };
+
+        getNotes();
     }, [notes]);
+
+    // useEffect(() => {
+    //   //ローカルストレージにノートを保存する
+    //   localStorage.setItem("notes", JSON.stringify(notes));
+    // }, [notes]);
 
     useEffect(() => {
         if (!isAuth) {
             navigate("./login");
         }
     }, []);
-  
-    const onDeleteNote = (id) => {
-      const filterNotes = notes.filter((note) => note.id !== id);
-      setNotes(filterNotes);
+
+    useEffect(() => {
+        getActiveNote();
+    }, [activeNote]);
+
+    useEffect(() => {
+        getActiveNote();
+    }, [newNote]);
+
+    const onDeleteNote = async (id) => {
+        await deleteDoc(doc(db, "notes", id));
+        // const filterNotes = notes.filter((note) => note.id !== id);
+        // setNotes(filterNotes);
     }
-  
-    const getActiveNote = () => {
-      return notes.find((note) => note.id === activeNote)
+
+    const getActiveNote = async () => {
+        // return notes.find((note) => note.id === activeNote);
+        if (!activeNote) {
+            return
+        } 
+        const postRef = collection(db, 'notes');
+
+        const note = await getDoc(doc(postRef, activeNote));
+        if (note.exists()) {
+            const noteData = note.data();
+            setNewNote(noteData);
+        }
     }
-  
-    // await setDoc(doc(db, "tasks", "tasksId"), {
-    //     id: uuid(),
-    //     title: "新しいノート",
-    //     content: "新しいノートの内容",
-    //     modDate: Date.now(),
-    //     userId: auth.currentUser.uid,
-    // });
 
     const onAddNote = async () => {
-        // db.collection("tasks").add({
-        //     id: uuid(),
-        //     title: "新しいノート",
-        //     content: "新しいノートの内容",
-        //     modDate: Date.now(),
-        //     userId: auth.currentUser.uid,
-        // }).then(ref => {
-        //     console.log(ref.id)
-        // });
+        const newNote = await addDoc(notesCollectionRef, {
+            uuid: uuid(),
+            title: "無題",
+            content: "新しいノートの内容",
+            modDate: Date.now(),
+            userId: auth.currentUser.uid,
+        })
 
-
-      const newNote = {
-        id: uuid(),
-        title: "無題",
-        content: "新しいノートの内容",
-        modDate: Date.now(),
-        userId: auth.currentUser.uid,
-      }
-      setNotes([...notes, newNote]);
-      console.log(notes);
-    }
-  
-    const onUpdateNote = (updatedNote) => {
-      //修正された新しいノートの配列を返す。
-      const updatedNotesArray = notes.map((note) => {
-        if (note.id === updatedNote.id) {
-          return updatedNote;
-        } else {
-          return note;
-        }
-      });
-  
-      setNotes(updatedNotesArray);
+        setNotes([...notes, newNote]);
     };
 
-  return (
-      <div className="App home">
-          <Sidebar onAddNote={onAddNote} notes={notes} onDeleteNote={onDeleteNote} activeNote={activeNote} setActiveNote={setActiveNote} />
-          <Main activeNote={getActiveNote()} onUpdateNote={onUpdateNote} />
+    const onUpdateNote = async (key, value) => {
+        const noteDoc = doc(db, "notes", activeNote);
+        const newFields = {
+            [key]: value,
+            modDate: Date.now(),
+        };
+        await updateDoc(noteDoc, newFields);
+
+        const changeNote = notes.map((note) => {
+                if (note.id === activeNote) {
+                    return {
+                        [key]: value,
+                        modDate: Date.now(),
+                    };
+                } else {
+                  return note;
+                }
+        });
+        setNewNote(changeNote);
+    };
+
+    return (
+        <div className="App home">
+            <Sidebar onAddNote={onAddNote} notes={notes} onDeleteNote={onDeleteNote} activeNote={activeNote} setActiveNote={setActiveNote} />
+            {/* <Main activeNote={getActiveNote()} onUpdateNote={onUpdateNote} /> */}
+
+
+            {!activeNote ? (
+                <div className="no-active-note">ノートが選択されていません</div>
+            ) : (
+                <div className="app-main">
+                    <div className="app-main-note-edit">
+                        <input id="title" type="text" value={newNote.title} onChange={(e) => { onUpdateNote("title", e.target.value) }}></input>
+                        <textarea id="content" placeholder="ノート内容を記入" value={newNote.content} onChange={(e) => { onUpdateNote("content", e.target.value) }}></textarea>
+                    </div>
+                </div>
+            )}
         </div>
-  )
+    )
 }
 
 export default Home

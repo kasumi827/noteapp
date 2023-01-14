@@ -18,8 +18,11 @@ const Login = ({setIsAuth}) => {
 
     return (
         <div className="login">
-                    <button onClick={signInWithGoogle}><p>グーグルでログインする</p></button>
-    </div>
+            <div className="loginform">
+            <p>グーグルでログインする</p>
+            <button onClick={signInWithGoogle}><p>login</p></button>
+            </div>
+        </div>
   )
 }
 

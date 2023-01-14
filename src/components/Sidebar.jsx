@@ -9,7 +9,7 @@ const Sidebar = ({onAddNote, notes, onDeleteNote, activeNote, setActiveNote }) =
     const note = (searchNote.length === 0) ? sortedNotes : searchNote;
 
     useEffect(() => {
-        setActiveNote(notes[0].id);
+        // setActiveNote(notes[0].id);
     }, []);
 
     const handleSearch = () => {
