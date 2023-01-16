@@ -7,12 +7,13 @@ import Home from './Home';
 import Login from './components/Login';
 import Intro from './components/Intro';
 import User from './components/User';
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
   const auth = getAuth();
   const user = auth.currentUser;
+  // const [user, loading, error] = useAuthState(auth);
   const uid = (user !== null) ? user.uid : "false";
   const displayName = (user !== null) ? user.displayName : "false";
 

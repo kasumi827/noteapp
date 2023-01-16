@@ -4,6 +4,7 @@
   overflow: hidden;
   font-size: 16px;
   display: flex;
+  color: #333;
 }
 
 .home {
@@ -33,23 +34,60 @@
 }
 
 .login button {
-  margin-top: 14px;
+  /* margin-top: 14px; */
   border: none;
-  border-radius: 5px;
-  box-shadow: 1px 5px 5px #626262;
+  border-radius: 50px;
+  /* box-shadow: 1px 3px 3px #878787; */
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   cursor: pointer;
-  background-color: #cf9b48;
+  /* background-color: #cf9b48; */
+  /* background: #067b7c; */
+  /* background-image: linear-gradient(164deg, rgba(253, 146, 146, 1), rgba(209, 254, 212, 1)); */
+  /* background-image: linear-gradient(51deg, rgba(253, 146, 146, 1), rgba(209, 254, 212, 1)); */
+  background: #feb1b1;
   color: white;
   font-weight: 800;
   font-size: 1.2rem;
   width: 80%;
+  max-width: 300px;
+  transition: all 0.5s;
+}
+
+.login button:hover {
+  opacity: 0.7;
+}
+
+.login h1 {
+  padding-top: 24px;
+  font-size: 30px;
+  color: rgb(69, 69, 69);
+}
+
+.google {
+  margin: 0;
+  margin-top: 30px;
+}
+
+.google img {
+  width: 90px;
+  height: 90px;
+}
+
+.login span {
+  display: block;
+  border: 1px solid rgb(69, 69, 69);
+  width: 80%;
+  max-width: 300px;
+  margin: 0 auto;
 }
 
 .loginform {
   background: #fff;
-  padding: 50px;
+  padding: 10px 0px 50px;
   width: 60%;
+  max-width: 350px;
   margin: 0 auto;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 .intro {
@@ -59,4 +97,56 @@
   justify-content: center;
   align-items: center;
   font-weight: bold;
+}
+
+.logout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+.logout p {
+  font-weight: bold;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+.logout button {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.user {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.userBox {
+  background: #fff;
+  width: 400px;
+  /* height: 300px; */
+  text-align: center;
+  font-weight: bold;
+  padding: 40px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.user table  {
+  width:100%;
+  border-collapse: separate; 
+  border: 1px solid #067b7c;
+  border-spacing: 0px 0px;
+  text-align: left;
+}
+
+.user th {
+  background: #067b7c;;
+  color: #fff;
+  text-align: center;
+  padding: 8px;
+}
+
+.user td {
+  padding-left: 10px;
 }

@@ -7,18 +7,49 @@
     height: 60px;
     /* background: rgba(0,0,0,0.04); */
     background-color: rgb(254, 241, 214);
-    border-bottom: 1px solid rgb(218, 206, 183);;
+    background: linear-gradient(90deg, rgba(247, 93, 139, 0.54), rgba(254, 220, 64, 0.54));
+    border-bottom: 1px solid rgb(218, 206, 183);
 }
 
 .nav a {
     text-decoration: none;
-    color: #333;
-    font-weight: bold;
+    color: rgb(69, 69, 69);
     transition: all 0.3s;
     padding: 0 23px;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .nav a:hover {
-    color: cadetblue;;
+    color: cadetblue;
+}
+
+.left {
+    margin-left: 20px;
+}
+
+.right {
+    display: flex;
+    align-items: center;
+}
+
+.nav1 img {
+    display: block;
+    width: 100px;
+}
+
+.nav2, .nav3 {
+    display: block;
+}
+
+.nav2 img{
+    display: block;
+    width: 50px;
+    margin: 0 auto;
+}
+
+.nav .note {
+    background: #fff;
+    border: 2px solid#e5f5f5;
+    padding: 5px 23px;
+    margin-right: 10px;
 }

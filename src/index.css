@@ -27,7 +27,8 @@ a:hover {
 body {
   margin: 0;
   background-color: rgb(254, 241, 214);
-  font-family: 'Zen Maru Gothic', sans-serif;
+  background: #fff8ea;
+  font-family: 'Noto Sans JP', sans-serif;
 }
 
 /* button {

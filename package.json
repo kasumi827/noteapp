@@ -9,11 +9,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.2.1",
+    "@fortawesome/free-regular-svg-icons": "^6.2.1",
+    "@fortawesome/free-solid-svg-icons": "^6.2.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "firebase": "^9.15.0",
+    "prosemirror": "^0.7.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-firebase-hooks": "^5.1.1",
     "react-markdown": "^8.0.4",
+    "react-prosemirror": "^0.2.1",
     "react-router-dom": "^6.6.1",
     "uuid": "^9.0.0"
   },
