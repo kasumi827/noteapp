@@ -4,19 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 // import { getAuth, updateProfile } from "firebase/auth";
 
-const User = ({ uid, displayName,isAuth }) => {
+const User = ({ uid, displayName,isAuth,auth }) => {
     const navigate = useNavigate();
-    // const auth = getAuth();
-
-    // updateProfile(auth.currentUser, {
-    //     displayName: "Jane Q. User", photoURL: "https://example.com/jane-q-user/profile.jpg"
-    //   }).then(() => {
-    //     // Profile updated!
-    //     // ...
-    //   }).catch((error) => {
-    //     // An error occurred
-    //     // ...
-    //   });
+    console.log(auth.currentUser.photoURL);
 
     useEffect(() => {
         if (!isAuth) {
@@ -26,7 +16,7 @@ const User = ({ uid, displayName,isAuth }) => {
   return (
       <div className="user">  
         <div className="userBox">    
-          <p className="userImg"><img src={auth.currentUser.photoURL}></img></p>
+          {/* <p className="userImg"><img src={auth.currentUser.photoURL}></img></p> */}
               <table>
               <tbody>
                 <tr className="border">

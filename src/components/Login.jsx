@@ -5,6 +5,7 @@ import { auth, provider } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import google from "../images/google.png";
 import { getAuth, setPersistence } from "firebase/auth";
+import { browserLocalPersistence } from 'firebase/auth';
 
 const Login = ({setIsAuth}) => {   
     // const [user] = useAuthState(auth);
@@ -12,23 +13,23 @@ const Login = ({setIsAuth}) => {
     const auth = getAuth();
 
     const signInWithGoogle = () => {
-        // setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-        // .then(() => {
+        setPersistence(auth, browserLocalPersistence)
+        .then(() => {
                 signInWithPopup(auth, provider).then((result) => {
-                    localStorage.setItem("isAuth", true);
-                    setIsAuth(true);
+                    // localStorage.setItem("isAuth", true);
+                    // setIsAuth(true);
                     navigate("/home");
                     return signInWithPopup(auth, provider);
                 });
-            // });
+            });
     };
     
     //今の認証情報を確認するところから始める
-    if (firebase.auth().currentUser !== null) {
-        console.log("認証情報があるよ！")
-    } else {
-        console.log("認証情報は残ってないよ！")
-    }
+    // if (firebase.auth().currentUser !== null) {
+    //     console.log("認証情報があるよ！")
+    // } else {
+    //     console.log("認証情報は残ってないよ！")
+    // }
 
     // componentDidMount() {
     //     firebase.auth().onAuthStateChanged(function(user) {
